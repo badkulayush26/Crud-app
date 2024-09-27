@@ -1,11 +1,16 @@
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Create from './components/Create';
+import Read from './components/Read';
 
 function App() {
   return (
     <div className="container">
-     <h1 className='text-center'>this is crud form</h1>
-     <Create />
+      <Routes>
+        <Route path='/' element={<Read />}></Route>
+        <Route path='/create' element={<Create />}></Route>
+      </Routes>
+    
     </div>
   );
 }
