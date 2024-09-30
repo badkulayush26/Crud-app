@@ -1,132 +1,91 @@
-import React from 'react'
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function Read() {
+  const [formData, setFormData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("https://66f642bd436827ced97664a4.mockapi.io/crud")
+      .then((response) => {
+        console.log(response.data);
+        setFormData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
   return (
-   <>
-   {/* <div className='flex flex-wrap'>
-    <div className='w-full'>
-        <table className='table-auto w-full border border-gray-300 odd:bg-gray-200 bg-gray-800 text-white hover:bg-gray-100'>
-            <thead>
-                <tr>ID</tr>
-                <tr>NAME</tr>
-                <tr>AGE</tr>
-                <tr>EMAIL</tr>
-                <tr>EDIT</tr>
-                <tr>DELETE</tr>
+    <>
+      <div className="grid grid-cols-1 place-items-center">
+        <div className="w-full">
+          <div className="my-3">
+            <Link to="/create">
+              <button className="bg-blue-500 text-white font-bold px-4 py-2 rounded hover:bg-blue-600">
+                Create New Data
+              </button>
+            </Link>
+          </div>
+          <table className="table-auto border-collapse border border-gray-800 w-full mx-auto">
+            <thead className="bg-gray-800 text-white">
+              <tr>
+                <th className="border border-gray-600 px-4 py-2">ID</th>
+                <th className="border border-gray-600 px-4 py-2">NAME</th>
+                <th className="border border-gray-600 px-4 py-2">AGE</th>
+                <th className="border border-gray-600 px-4 py-2">EMAIL</th>
+                <th className="border border-gray-600 px-4 py-2">EDIT</th>
+                <th className="border border-gray-600 px-4 py-2">DELETE</th>
+              </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th>1</th>
-                    <th>neha</th>
-                    <th>24</th>
-                    <th>edit</th>
-                    <th>DELETE</th>
+              {formData.length > 0 ? (
+                formData.map((items) => (
+                  <tr
+                    className="bg-gray-700 text-white hover:bg-gray-500"
+                    key={items.id}
+                  >
+                    <td className="border border-gray-600 px-4 py-2">
+                      {items.id}
+                    </td>
+                    <td className="border border-gray-600 px-4 py-2">
+                      {items.e_name}
+                    </td>
+                    <td className="border border-gray-600 px-4 py-2">
+                      {items.e_age}
+                    </td>
+                    <td className="border border-gray-600 px-4 py-2">
+                      {items.e_email}
+                    </td>
+                    <td className="border border-gray-600 px-4 py-2">
+                      <button className="bg-blue-500 w-full text-white font-bold px-4 py-2 rounded hover:bg-blue-600">
+                        Edit
+                      </button>
+                    </td>
+                    <td className="border border-gray-600 px-4 py-2">
+                      <button className="bg-red-500 text-white w-full font-bold px-4 py-2 rounded hover:bg-red-600">
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr className="bg-gray-700 text-white">
+                  <td
+                    colSpan="6"
+                    className="border border-gray-600 px-4 py-2 text-center"
+                  >
+                    No data available.
+                  </td>
                 </tr>
-                <tr>
-                    <th>1</th>
-                    <th>neha</th>
-                    <th>24</th>
-                    <th>edit</th>
-                    <th>DELETE</th>
-                </tr>
-                <tr>
-                    <th>1</th>
-                    <th>neha</th>
-                    <th>24</th>
-                    <th>edit</th>
-                    <th>DELETE</th>
-                </tr>
+              )}
             </tbody>
-        </table>
-
-    </div>
-    
-   </div>
-
-
-   <div className='row'>
-    <div className='col-md-12'>
-        <table className='table table-bordered table-striped table-hover table-dark'>
-        <thead>
-                <tr>ID</tr>
-                <tr>NAME</tr>
-                <tr>AGE</tr>
-                <tr>EMAIL</tr>
-                <tr>EDIT</tr>
-                <tr>DELETE</tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>1</th>
-                    <th>neha</th>
-                    <th>24</th>
-                    <th>edit</th>
-                    <th>DELETE</th>
-                </tr>
-                <tr>
-                    <th>1</th>
-                    <th>neha</th>
-                    <th>24</th>
-                    <th>edit</th>
-                    <th>DELETE</th>
-                </tr>
-                <tr>
-                    <th>1</th>
-                    <th>neha</th>
-                    <th>24</th>
-                    <th>edit</th>
-                    <th>DELETE</th>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-   </div> */}
-   <div className="grid grid-cols-1">
-  <div className="w-full">
-    <table className="table-auto border-collapse border border-gray-800 w-full">
-      <thead className="bg-gray-800 text-white">
-        <tr>
-          <th className="border border-gray-600 px-4 py-2">ID</th>
-          <th className="border border-gray-600 px-4 py-2">NAME</th>
-          <th className="border border-gray-600 px-4 py-2">AGE</th>
-          <th className="border border-gray-600 px-4 py-2">EMAIL</th>
-          <th className="border border-gray-600 px-4 py-2">EDIT</th>
-          <th className="border border-gray-600 px-4 py-2">DELETE</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr className="bg-gray-700 text-white hover:bg-gray-600">
-          <td className="border border-gray-600 px-4 py-2">1</td>
-          <td className="border border-gray-600 px-4 py-2">Neha</td>
-          <td className="border border-gray-600 px-4 py-2">24</td>
-          <td className="border border-gray-600 px-4 py-2">neha@example.com</td>
-          <td className="border border-gray-600 px-4 py-2 text-blue-400 hover:text-blue-600">Edit</td>
-          <td className="border border-gray-600 px-4 py-2 text-red-400 hover:text-red-600">Delete</td>
-        </tr>
-        <tr className="bg-gray-700 text-white hover:bg-gray-600">
-          <td className="border border-gray-600 px-4 py-2">2</td>
-          <td className="border border-gray-600 px-4 py-2">Rahul</td>
-          <td className="border border-gray-600 px-4 py-2">28</td>
-          <td className="border border-gray-600 px-4 py-2">rahul@example.com</td>
-          <td className="border border-gray-600 px-4 py-2 text-blue-400 hover:text-blue-600">Edit</td>
-          <td className="border border-gray-600 px-4 py-2 text-red-400 hover:text-red-600">Delete</td>
-        </tr>
-        <tr className="bg-gray-700 text-white hover:bg-gray-600">
-          <td className="border border-gray-600 px-4 py-2">3</td>
-          <td className="border border-gray-600 px-4 py-2">Sita</td>
-          <td className="border border-gray-600 px-4 py-2">30</td>
-          <td className="border border-gray-600 px-4 py-2">sita@example.com</td>
-          <td className="border border-gray-600 px-4 py-2 text-blue-400 hover:text-blue-600">Edit</td>
-          <td className="border border-gray-600 px-4 py-2 text-red-400 hover:text-red-600">Delete</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-   </>
-  )
+          </table>
+        </div>
+      </div>
+    </>
+  );
 }
 
-export default Read
-
+export default Read;

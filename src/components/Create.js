@@ -1,23 +1,24 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Create() {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [email, setEmail] = useState("");
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log({ name, age, email });
-    await axios.post('https://66f642bd436827ced97664a4.mockapi.io/crud',{
-        e_name:name,
-        e_age:age,
-        e_email:email
-    }).then(()=>{
-        navigate('/');
-
-    })
+    await axios
+      .post("https://66f642bd436827ced97664a4.mockapi.io/crud", {
+        e_name: name,
+        e_age: age,
+        e_email: email,
+      })
+      .then(() => {
+        navigate("/");
+      });
   };
 
   return (
@@ -25,7 +26,14 @@ function Create() {
       <div className="flex justify-center">
         <div className="w-1/3">
           <form onSubmit={handleSubmit}>
-            <div className="bg-blue-700 text-center p-4">
+          <div className="my-3">
+            <Link to="/">
+              <button className="bg-blue-500 text-white font-bold px-4 py-2 rounded hover:bg-blue-600">
+                Read Data
+              </button>
+            </Link>
+          </div>
+            <div className="bg-blue-700 text-center mt-6 rounded-md p-4">
               <h1 className="text-4xl">Create data</h1>
               <br />
             </div>
@@ -68,14 +76,13 @@ function Create() {
             </div>
             <br />
             <div className="">
-            <input
-              className="inline-block w-full text-center px-4 py-2 rounded text-white bg-blue-500 hover:bg-blue-600"
-              value="Submit"
-              type="submit"
-            />
-          </div>
+              <input
+                className="inline-block w-full text-center px-4 py-2 rounded text-white bg-blue-500 hover:bg-blue-600"
+                value="Submit"
+                type="submit"
+              />
+            </div>
           </form>
-         
         </div>
       </div>
     </>

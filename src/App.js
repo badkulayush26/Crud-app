@@ -5,10 +5,10 @@ import Read from './components/Read';
 
 function App() {
   return (
-    <div className="container">
+    <div className="container mx-auto">
       <Routes>
-        <Route path='/' element={<Read />}></Route>
-        <Route path='/create' element={<Create />}></Route>
+        <Route exact path='/' element={<Read />}></Route>
+        <Route exact path='/create' element={<Create />}></Route>
       </Routes>
     
     </div>
