@@ -19,13 +19,22 @@ function Read() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://66f642bd436827ced97664a4.mockapi.io/crud/${id}`);
+      await axios.delete(
+        `https://66f642bd436827ced97664a4.mockapi.io/crud/${id}`
+      );
       setFormData(formData.filter((item) => item.id !== id));
     } catch (error) {
       console.error("Error deleting data:", error);
     }
   };
-  
+
+  function setDataToStorage(id, name, age, email) {
+    localStorage.setItem("id", id);
+    localStorage.setItem("name", name);
+    localStorage.setItem("age", age);
+    localStorage.setItem("email", email);
+  }
+
   return (
     <>
       <div className="grid grid-cols-1 place-items-center">
@@ -68,14 +77,29 @@ function Read() {
                       {items.e_email}
                     </td>
                     <td className="border border-gray-600 px-4 py-2">
-                      <button className="bg-blue-500 w-full text-white font-bold px-4 py-2 rounded hover:bg-blue-600">
-                        Edit
-                      </button>
+                      <Link to="/edit">
+                        <button
+                          className="bg-blue-500 w-full text-white font-bold px-4 py-2 rounded hover:bg-blue-600"
+                          onClick={() => {
+                            setDataToStorage(
+                              items.id,
+                              items.e_name,
+                              items.e_age,
+                              items.e_email
+                            );
+                          }}
+                        >
+                          Edit
+                        </button>
+                      </Link>
                     </td>
                     <td className="border border-gray-600 px-4 py-2">
                       <button
                         className="bg-red-500 text-white w-full font-bold px-4 py-2 rounded hover:bg-red-600"
-                        onClick={() => {if(window.confirm("Are you sure to delete data")) (handleDelete(items.id))}}
+                        onClick={() => {
+                          if (window.confirm("Are you sure to delete data"))
+                            handleDelete(items.id);
+                        }}
                       >
                         Delete
                       </button>
